@@ -1,6 +1,18 @@
 module.exports = {
   mode: 'jit',
-  purge: ['./public/**/*.html','./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
+  purge: {
+    content:['./public/**/*.html','./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
+    safelist:[
+      'bg-orange',
+      'bg-lgrey',
+      'bg-gdblue',
+      'bg-dblue',
+      'bg-grey',
+      'bg-gblue',
+      'bg-blue',
+      'bg-white',
+    ]
+  },
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {},
