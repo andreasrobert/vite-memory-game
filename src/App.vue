@@ -14,19 +14,19 @@ import HelloWorld from '@/components/HelloWorld.vue'
         <router-link to="/about">About</router-link>
       </div>
     </div>
-  </header>
+  </header> -->
 
-  <router-view /> -->
+  <router-view />
 </template>
 
 <style>
 @import '@/assets/base.css';
 
 #app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-
+  margin: 0;
+  display: flex;
+    flex-direction: column;
+    width: 100%;
   font-weight: normal;
 }
 
@@ -85,9 +85,9 @@ a,
   }
 
   #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
   }
 
   header {
