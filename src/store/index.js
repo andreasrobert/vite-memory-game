@@ -9,6 +9,7 @@ const themeOne = {
   six:"gblue",
   seven:"blue",
   eight:"white",
+  nine:"lorange",
 }
 
 const themeTwo = {
@@ -26,22 +27,26 @@ export default createStore({
   state: {
     color: themeOne,
     setting:{
-      theme:'Numbers',
-      player: 1,
-      grid:4
+      'Select Theme':'Numbers',
+      'Numbers of Players': 1,
+      'Grid Size':"4x4"
     }
   },
   mutations: {
-    themeColor(state){
-      state.color = themeTwo
-    }
+    changeSettings(state, payload){
+      state.setting[payload.header] = payload.item
+    },
+
+
   },
   actions: {
-    changeTheme({commit}){
-      commit('themeColor')
-    }
+    changeSettings({commit}){
+      commit('changeSettings')
+    },
+  
   },
-  modules: {}
+  modules: {},
+  
 })
 
 

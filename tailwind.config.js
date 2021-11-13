@@ -1,39 +1,57 @@
 module.exports = {
-  mode: 'jit',
+  mode: "jit",
   purge: {
-    content:['./public/**/*.html','./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
-    safelist:[
-      'bg-orange',
-      'bg-lgrey',
-      'bg-gdblue',
-      'bg-dblue',
-      'bg-grey',
-      'bg-gblue',
-      'bg-blue',
-      'bg-white',
-    ]
+    content: [
+      "./public/**/*.html",
+      "./index.html",
+      "./src/**/*.{vue,js,ts,jsx,tsx}",
+    ],
+    safelist: [
+      "bg-orange",
+      "bg-lgrey",
+      "bg-gdblue",
+      "bg-dblue",
+      "bg-grey",
+      "bg-gblue", "text-gblue",
+      "bg-blue", "text-blue",
+      "bg-white",
+      "w-[112px]", "w-[256px]","bg-lorange",
+    ],
   },
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {},
-    colors:{
-      transparent:'transparent',
-      orange: '#FDA214',
-      lgrey:'#BCCED9',
-      gdblue:'#304859',
-      dblue:'#152938',
-      grey:'#F2F2F2',
-      gblue:'#7191A5',
-      blue:'#6395B8',
-      white:'#FCFCFC',
+    textColor: {
+      transparent: "transparent",
+      orange: "#FDA214",
+      lgrey: "#BCCED9",
+      gdblue: "#304859",
+      dblue: "#152938",
+      grey: "#F2F2F2",
+      gblue: "#7191A5",
+      blue: "#6395B8",
+      white: "#FCFCFC",
 
-      green:'green',
-      red:'red'
-
-    }
+      green: "green",
+      red: "red",
+    },
+    colors: {
+      transparent: "transparent",
+      orange: "#FDA214",
+      lgrey: "#BCCED9",
+      gdblue: "#304859",
+      dblue: "#152938",
+      grey: "#F2F2F2",
+      gblue: "#7191A5",
+      blue: "#6395B8",
+      white: "#FCFCFC",
+      lorange:"#FFB84A",
+      green: "green",
+      red: "red",
+    },
   },
   variants: {
     extend: {},
   },
   plugins: [],
-}
+};
