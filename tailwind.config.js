@@ -15,7 +15,7 @@ module.exports = {
       "bg-gblue", "text-gblue",
       "bg-blue", "text-blue",
       "bg-white",
-      "w-[112px]", "w-[256px]","bg-lorange","bg-dwhite"
+      "w-[112px]", "w-[256px]","hover:bg-lorange","bg-dwhite","hover:bg-blue"
     ],
   },
   darkMode: false, // or 'media' or 'class'
