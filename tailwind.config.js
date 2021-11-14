@@ -15,7 +15,7 @@ module.exports = {
       "bg-gblue", "text-gblue",
       "bg-blue", "text-blue",
       "bg-white",
-      "w-[112px]", "w-[256px]","bg-lorange",
+      "w-[112px]", "w-[256px]","bg-lorange","bg-dwhite"
     ],
   },
   darkMode: false, // or 'media' or 'class'
@@ -27,7 +27,7 @@ module.exports = {
       lgrey: "#BCCED9",
       gdblue: "#304859",
       dblue: "#152938",
-      grey: "#F2F2F2",
+      grey: "#DFE7EC",
       gblue: "#7191A5",
       blue: "#6395B8",
       white: "#FCFCFC",
@@ -44,8 +44,9 @@ module.exports = {
       grey: "#F2F2F2",
       gblue: "#7191A5",
       blue: "#6395B8",
-      white: "#FCFCFC",
+      dwhite: "#DFE7EC",
       lorange:"#FFB84A",
+      white:"#FFFFFF",
       green: "green",
       red: "red",
     },

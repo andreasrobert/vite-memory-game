@@ -7,10 +7,10 @@
       <Option :header="'Select Theme'" :content="themes" />
       <Option :header="'Numbers of Players'" :content="players" />
       <Option :header="'Grid Size'" :content="grid" />
-
+      <router-link to="/game">
       <div :class="`cursor-pointer text-white text-2xl flex justify-center items-center h-[52px] rounded-[26px] bg-${color.one} hover:bg-${color.nine}`">Start Game</div>
+      </router-link>
     </div>
-    <router-link to="/game">About</router-link>
   </div>
 </template>
 

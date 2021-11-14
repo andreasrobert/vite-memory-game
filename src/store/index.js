@@ -8,8 +8,9 @@ const themeOne = {
   five:"grey",
   six:"gblue",
   seven:"blue",
-  eight:"white",
+  eight:"dwhite",
   nine:"lorange",
+  ten:"white"
 }
 
 const themeTwo = {
