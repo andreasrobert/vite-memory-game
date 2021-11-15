@@ -14,7 +14,7 @@
         md:w-[95vw]
       "
     >
-    <div></div>
+      <div></div>
       <!-- <img class="object-none" src="logo.svg" alt="" /> -->
       <div class="flex">
         <div
@@ -109,7 +109,7 @@
           }          `"
           @click="clicked(item)"
         >
-          {{item}}
+          <!-- {{ item }} -->
           <KeepAlive>
             <img
               v-show="
@@ -141,58 +141,14 @@
         class="flex absolute mx-auto bottom-[-154px] -inset-x-0 justify-center"
       >
         <div
+          v-if="playersNumb > 1"
           class="flex flex-col items-center"
           v-for="(wins, player) in players"
           :key="player"
         >
-          <div
-            class="
-              w-[200px]
-              flex
-              relative
-              items-center
-              rounded-[8px]
-              p-[21px]
-              m-[20px]
-              h-[59px]
-              justify-between
-              md:w-[20vw]
-              mm:m-[2vw] mm:flex-col mm:items-start mm:p-[7px] mm:h-full
-              sm:items-center
-            "
-            :class="`${
-              player == turn
-                ? `bg-${color.one} text-${color.ten}`
-                : `bg-${color.eight}`
-            }`"
-          >
-            <div class="sm:hidden">Player {{ player }}</div>
-            <div class="lg:hidden">P{{ player }}</div>
-
-            <h2 class="text-2xl">{{ wins }}</h2>
-            <div
-              v-if="player == turn"
-              class="
-                transform
-                rotate-45
-                w-[20px]
-                h-[20px]
-                absolute
-                mx-auto
-                top-[-10px]
-                -inset-x-0
-              "
-              :class="`bg-${color.one}`"
-            ></div>
-          </div>
-          <div
-            v-if="player == turn"
-            class="text-[13px] tracking-[5px] mm:hidden"
-            :class="`text-${color.four}`"
-          >
-            CURRENT TURN
-          </div>
+          <PlayerTurn :player="player" :wins="wins" :turn="turn" />
         </div>
+        <div v-if="playersNumb === 1">sss</div>
       </div>
     </div>
   </div>
@@ -205,6 +161,7 @@ import { computed, h } from "vue";
 import Results from "../components/Results.vue";
 import usePlayerInit from "../composables/usePlayerInit";
 import useShuffleGrid from "../composables/useShuffleGrid";
+import PlayerTurn from "../components/PlayerTurn.vue";
 
 const HelloWorld = {
   render() {
@@ -305,7 +262,7 @@ export default {
       }
     },
   },
-  components: { HelloWorld, Results },
+  components: { HelloWorld, Results, PlayerTurn },
 };
 </script>
 
