@@ -8,6 +8,7 @@
       :style="styleImg"
       alt=""
     /> -->
+    <div></div>
     <div
       class="bg-white w-[504px] rounded-[20px] p-[48px] sm:w-[85vw] sm:p-[30px]"
     >

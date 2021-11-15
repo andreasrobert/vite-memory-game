@@ -14,6 +14,7 @@
         md:w-[95vw]
       "
     >
+    <div></div>
       <!-- <img class="object-none" src="logo.svg" alt="" /> -->
       <div class="flex">
         <div
@@ -81,8 +82,8 @@
         </router-link>
       </div>
     </div>
-    <div :style="{ columnCount: `${shuffle.grid}` }" class="relative">
-      <div class="mb-[10px]" v-for="item in shuffle.array" :key="item">
+    <div :style="{ columnCount: `${gridSize}` }" class="relative">
+      <div class="mb-[10px]" v-for="item in array" :key="item">
         <div
           class="
             flex
@@ -102,13 +103,13 @@
                     : `bg-${color.two}`
                 }`
           } ${
-            shuffle.grid === 4
+            gridSize === 4
               ? 'w-[10vh] h-[10vh] sm:w-[21vw] sm:h-[21vw]'
               : 'w-[7vh] h-[7vh] sm:w-[12vw] sm:h-[12vw]'
           }          `"
           @click="clicked(item)"
         >
-          <!-- {{item}} -->
+          {{item}}
           <KeepAlive>
             <img
               v-show="
@@ -135,7 +136,7 @@
         </div>
       </div>
       <!-- {{set['Numbers of Players']}} -->
-      <!-- {{ turn }} -->
+      <!-- {{ item }} -->
       <div
         class="flex absolute mx-auto bottom-[-154px] -inset-x-0 justify-center"
       >
@@ -199,10 +200,11 @@
 </template>
 
 <script>
-import { icons, numbers } from "../components/data";
-import { useStore } from "vuex";
+import { numbers, icons } from "../components/data";
 import { computed, h } from "vue";
 import Results from "../components/Results.vue";
+import usePlayerInit from "../composables/usePlayerInit";
+import useShuffleGrid from "../composables/useShuffleGrid";
 
 const HelloWorld = {
   render() {
@@ -215,45 +217,33 @@ const HelloWorld = {
 
 export default {
   setup() {
-    const store = useStore();
-    const settings = computed(() => store.state.setting);
-    let players = {};
-    let playersNumb = settings.value["Numbers of Players"];
-    for (let i = 1; i <= playersNumb; i++) {
-      players[i] = 0;
-    }
+    const { players, playersNumb, initPlayer } = usePlayerInit();
+    const { click, array, gridSize, initClick, shuffleGrid } = useShuffleGrid();
     return {
       players,
       playersNumb,
+      array,
+      gridSize,
+      click,
+      shuffleGrid,
+      initClick,
+      initPlayer,
     };
   },
   data() {
-    let array = [
-      0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-      21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35,
-    ];
-
-    let click = {};
-
-    array.forEach((numb) => {
-      click = { ...click, [numb]: { state: false, value: icons[numb] } };
-    });
-
     return {
-      grid: ["4x4", "6x6"],
-      icons,
       numbers,
-      click: click,
+      icons,
       try: {},
       found: {},
       single: 0,
       turn: 1,
+      allowed: true,
     };
   },
   computed: {
-    finish(){
-      return Object.keys(this.found).length === (this.grid * this.grid)
-       
+    finish() {
+      return Object.keys(this.found).length === this.gridSize * this.gridSize;
     },
     color() {
       return this.$store.state.color;
@@ -261,81 +251,37 @@ export default {
     set() {
       return this.$store.state.setting;
     },
-    shuffle() {
-      let array = [
-        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
-        20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35,
-      ];
-      let grid = 6;
-      if (this.set["Grid Size"] === "4x4") {
-        array = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
-        grid = 4;
-      }
-      let m = array.length,
-        t,
-        i;
-      while (m) {
-        i = Math.floor(Math.random() * m--);
-        t = array[m];
-        array[m] = array[i];
-        array[i] = t;
-      }
-      return { array, grid };
-    },
   },
   methods: {
     restart() {
       this.turn = 1;
+      this.single = 0;
       this.found = {};
       this.try = {};
-      this.single = 0;
 
-      let array = [
-        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
-        20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35,
-      ];
-
-      let click = {};
-
-      array.forEach((numb) => {
-        click = { ...click, [numb]: { state: false, value: icons[numb] } };
-      });
-
-      this.click = click;
-
-      let players = {};
-      for (let i = 1; i <= this.playersNumb; i++) {
-        players[i] = 0;
-      }
-      this.players = players;
-
-
-  
-      
+      this.click = this.initClick();
+      this.shuffleGrid();
+      this.initPlayer();
     },
     changeTheme() {
       return this.$store.dispatch("changeTheme");
     },
-    setImage(image) {
-      return require(`${image}`);
-    },
     clicked(item) {
       let temp = Object.keys(this.try);
-      console.log(this.click);
 
       if (temp.length < 2) {
         if (this.found[item] || this.try[item]) return;
         this.single++;
-
         this.click[item].state = true;
         this.try[item] = item;
         temp = Object.keys(this.try);
       }
 
-      if (temp.length >= 2) {
+      if (temp.length >= 2 && this.allowed) {
+        this.allowed = false;
         setTimeout(() => {
+          this.allowed = true;
           if (this.click[temp[0]].value === this.click[temp[1]].value) {
-            console.log("foundd");
             this.found[this.try[temp[0]]] = true;
             this.found[this.try[temp[1]]] = true;
             this.try = {};
@@ -345,7 +291,6 @@ export default {
               this.turn = 0;
             }
             this.turn++;
-            console.log(this.found);
             return;
           }
 
@@ -364,8 +309,4 @@ export default {
 };
 </script>
 
-<style>
-.me {
-  cursor: pointer;
-}
-</style>
+<style></style>
