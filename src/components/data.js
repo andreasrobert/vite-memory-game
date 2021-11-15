@@ -5,41 +5,57 @@ export const numbers = [
 
 export const icons = [
   "icons/ambulance-solid.svg",
-  "icons/glasses-solid.svg",
-  "icons/binoculars-solid.svg",
-  "icons/pencil-alt-solid.svg",
-  "icons/battery-half-solid.svg",
-  "icons/bell-regular.svg",
-  "icons/pizza-slice-solid.svg",
-  "icons/mobile-alt-solid.svg",
-  "icons/tree-solid.svg",
-  "icons/car-side-solid.svg",
-  "icons/taxi-solid.svg",
-  "icons/spider-solid.svg",
-  "icons/fish-solid.svg",
-  "icons/cat-solid.svg",
-  "icons/couch-solid.svg",
-  "icons/crown-solid.svg",
-  "icons/crow-solid.svg",
-  "icons/dog-solid.svg",
-
   "icons/ambulance-solid.svg",
+
   "icons/glasses-solid.svg",
+  "icons/glasses-solid.svg",
+
   "icons/binoculars-solid.svg",
+  "icons/binoculars-solid.svg",
+
   "icons/pencil-alt-solid.svg",
+  "icons/pencil-alt-solid.svg",
+
   "icons/battery-half-solid.svg",
+  "icons/battery-half-solid.svg",
+
   "icons/bell-regular.svg",
+  "icons/bell-regular.svg",
+
   "icons/pizza-slice-solid.svg",
+  "icons/pizza-slice-solid.svg",
+
   "icons/mobile-alt-solid.svg",
+  "icons/mobile-alt-solid.svg",
+
   "icons/tree-solid.svg",
+  "icons/tree-solid.svg",
+
   "icons/car-side-solid.svg",
+  "icons/car-side-solid.svg",
+
   "icons/taxi-solid.svg",
+  "icons/taxi-solid.svg",
+
   "icons/spider-solid.svg",
+  "icons/spider-solid.svg",
+
   "icons/fish-solid.svg",
+  "icons/fish-solid.svg",
+
   "icons/cat-solid.svg",
+  "icons/cat-solid.svg",
+
   "icons/couch-solid.svg",
+  "icons/couch-solid.svg",
+
   "icons/crown-solid.svg",
+  "icons/crown-solid.svg",
+
   "icons/crow-solid.svg",
+  "icons/crow-solid.svg",
+
+  "icons/dog-solid.svg",
   "icons/dog-solid.svg",
   
 ];
