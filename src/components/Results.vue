@@ -14,7 +14,7 @@
           p-[56px]
         "
       >
-        <h1>It's a tie!</h1>
+        <h1>{{ tie ? "It's a tie!" : `Player ${winner} wins` }}</h1>
         <h4>Game over! Here are the results...</h4>
 
         <div
@@ -26,11 +26,12 @@
             rounded-[8px]
             justify-between
             w-full
-            bg-blue
           "
-          :class="`bg-${color.eight}`"
+          :class="`${
+            wins === highScore ? `bg-${color.four} text-${color.ten}` : `bg-${color.eight}`
+          }`"
         >
-          <h1>Player {{ player }}</h1>
+          <h1>Player {{ player }} {{ wins === highScore && "(Winner!)" }}</h1>
           <h1>{{ wins }} Pairs</h1>
         </div>
         <div class="flex justify-between w-full">
@@ -74,7 +75,18 @@
 </template>
 
 <script>
+import useWinnerIs from "../composables/useWinnerIs";
+
 export default {
+  setup(props) {
+    const { highScore, tie, winner } = useWinnerIs(props.players);
+
+    return {
+      highScore,
+      tie,
+      winner,
+    };
+  },
   props: {
     players: Object,
     restart: Function,
