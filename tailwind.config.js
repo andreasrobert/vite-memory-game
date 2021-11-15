@@ -13,13 +13,23 @@ module.exports = {
       "bg-dblue",
       "bg-grey",
       "bg-gblue", "text-gblue",
-      "bg-blue", "text-blue",
+      "bg-blue", "text-blue", 
       "bg-white", "text-white", "text-dblue",
       "w-[112px]", "w-[256px]","hover:bg-lorange","bg-dwhite","hover:bg-blue"
     ],
   },
   darkMode: false, // or 'media' or 'class'
   theme: {
+    screens:{
+      'md': {'max': '970px'},
+      'mm': {'max':'800px'},
+      'sm': {'max': '530px'},
+      'lg': '531px',
+      'xl': '1280px',
+      '2xl': '1536px',
+
+
+    },
     extend: {},
     textColor: {
       transparent: "transparent",

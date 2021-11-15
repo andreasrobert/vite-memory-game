@@ -19,7 +19,7 @@ import HelloWorld from '@/components/HelloWorld.vue'
   <router-view />
 </template>
 
-<style>
+<style >
 /* @import '@/assets/base.css'; */
 @import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@700&display=swap');
 
