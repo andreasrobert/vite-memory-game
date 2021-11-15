@@ -195,7 +195,7 @@
       </div>
     </div>
   </div>
-  <Results :players="players" />
+  <Results v-if="finish" :players="players" :restart="restart" />
 </template>
 
 <script>
@@ -251,6 +251,10 @@ export default {
     };
   },
   computed: {
+    finish(){
+      return Object.keys(this.found).length === (this.grid * this.grid)
+       
+    },
     color() {
       return this.$store.state.color;
     },
@@ -304,6 +308,10 @@ export default {
         players[i] = 0;
       }
       this.players = players;
+
+
+  
+      
     },
     changeTheme() {
       return this.$store.dispatch("changeTheme");

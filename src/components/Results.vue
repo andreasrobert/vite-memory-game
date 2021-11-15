@@ -12,18 +12,19 @@
           <h1>Player {{player}}</h1>
           <h1>{{wins}} Pairs</h1>
         </div>
-        <div class="flex justify-between">
+        <div class="flex justify-between w-full">
           <div
-            class="cursor-pointer flex justify-center items-center w-[45%]"
+            class="cursor-pointer flex justify-center items-center rounded-[26px] h-[47px] w-[170px]"
             :class="` bg-${color.one} 
         hover:bg-${color.nine}`"
+        @click="restart"
           >
             Restart
           </div>
               <router-link to="/">
 
           <div
-            class="cursor-pointer flex justify-center items-center w-[45%]"
+            class="cursor-pointer flex justify-center items-center rounded-[26px] h-[47px] w-[170px]"
             :class="` bg-${color.eight} 
         hover:bg-${color.seven}`"
           >
@@ -40,6 +41,7 @@
 export default {
    props: {
     players: Object,
+    restart: Function
   },
   computed: {
     color() {
