@@ -58,7 +58,15 @@
         </div>
       </div>
     </div>
-    {{}}
+    <!-- {{set['Numbers of Players']}} -->
+    <div class="flex">
+      <div v-for="player in set['Numbers of Players']" :key="player">
+      <div class="w-[155px] flex items-center p-[21px] m-[20px] h-[72px]" :class="`bg-${color.eight}`" >
+      Player {{player}}
+      </div>
+
+      </div>
+    </div>
   </div>
 </template>
 
