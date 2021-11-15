@@ -24,7 +24,7 @@
         New Game
       </div>
     </router-link>
-    <div :style="{columnCount: `${shuffle.grid}`}">
+    <div :style="{ columnCount: `${shuffle.grid}` }">
       <div class="mb-[10px]" v-for="item in shuffle.array" :key="item">
         <div
           class="
@@ -38,13 +38,24 @@
             rounded-full
             cursor-pointer
           "
-          :class="`${click[item].state && !found[item]  ? `bg-${color.one}`: `${!found[item]?`bg-${color.four} hover:bg-${color.seven}`:`bg-${color.two}`}`}`"
+          :class="`${
+            click[item].state && !found[item]
+              ? `bg-${color.one}`
+              : `${
+                  !found[item]
+                    ? `bg-${color.four} hover:bg-${color.seven}`
+                    : `bg-${color.two}`
+                }`
+          }`"
           @click="clicked(item)"
         >
           <!-- {{item}} -->
           <KeepAlive>
             <img
-              v-show="(click[item].state || found[item]) && set['Select Theme'] === 'Icons'"
+              v-show="
+                (click[item].state || found[item]) &&
+                set['Select Theme'] === 'Icons'
+              "
               class="w-[50%]"
               :src="`${icons[item]}`"
               style="
@@ -54,17 +65,35 @@
               alt=""
             />
           </KeepAlive>
-          <h1 v-if="(click[item].state || found[item]) && set['Select Theme'] === 'Numbers'">{{ numbers[item] }}</h1>
+          <h1
+            v-if="
+              (click[item].state || found[item]) &&
+              set['Select Theme'] === 'Numbers'
+            "
+          >
+            {{ numbers[item] }}
+          </h1>
         </div>
       </div>
     </div>
     <!-- {{set['Numbers of Players']}} -->
+    {{ turn }}
     <div class="flex">
-      <div v-for="player in set['Numbers of Players']" :key="player">
-      <div class="w-[155px] flex items-center p-[21px] m-[20px] h-[72px]" :class="`bg-${color.eight}`" >
-      Player {{player}}
-      </div>
-
+      <div v-for="(wins, player) in players" :key="player">
+        <div
+          class="
+            w-[155px]
+            flex
+            items-center
+            rounded-[7px]
+            p-[21px]
+            m-[20px]
+            h-[59px]
+          "
+          :class="`${player == turn ? `bg-${color.one}` :`bg-${color.eight}`}`"
+        >
+          Player {{ player }} {{wins}}
+        </div>
       </div>
     </div>
   </div>
@@ -72,8 +101,23 @@
 
 <script>
 import { icons, numbers } from "../components/data";
+import { useStore } from "vuex";
+import { computed } from "vue";
 
 export default {
+  setup() {
+    const store = useStore();
+    const settings = computed(() => store.state.setting);
+    let players = {};
+    let playersNumb = settings.value["Numbers of Players"];
+    for (let i = 1; i <= playersNumb; i++) {
+      players[i] = 0;
+    }
+    return {
+      players,
+      playersNumb,
+    };
+  },
   data() {
     let array = [
       0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
@@ -91,16 +135,15 @@ export default {
     });
 
     return {
-      players: 4,
       grid: ["4x4", "6x6"],
       icons,
       numbers,
       state: {},
-      array: array,
       click: click,
       try: {},
       found: {},
-      single: 0
+      single: 0,
+      turn: 1,
     };
   },
   computed: {
@@ -115,10 +158,10 @@ export default {
         0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
         20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35,
       ];
-      let grid = 6
+      let grid = 6;
       if (this.set["Grid Size"] === "4x4") {
         array = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
-        grid = 4
+        grid = 4;
       }
       let m = array.length,
         t,
@@ -129,7 +172,7 @@ export default {
         array[m] = array[i];
         array[i] = t;
       }
-      return {array,grid};
+      return { array, grid };
     },
   },
   methods: {
@@ -143,8 +186,8 @@ export default {
       let temp = Object.keys(this.try);
 
       if (temp.length < 2) {
-        if(this.found[item] || this.try[item]) return
-        this.single++
+        if (this.found[item] || this.try[item]) return;
+        this.single++;
 
         this.click[item].state = true;
         this.try[item] = item;
@@ -154,17 +197,27 @@ export default {
       if (temp.length >= 2) {
         setTimeout(() => {
           if (this.click[temp[0]].value === this.click[temp[1]].value) {
-            console.log("foundd")
+            console.log("foundd");
             this.found[this.try[temp[0]]] = true;
             this.found[this.try[temp[1]]] = true;
             this.try = {};
 
+            this.players[this.turn]++
+            if (this.turn == this.playersNumb) {
+              this.turn = 0;
+            }
+            this.turn++;
+            console.log(this.found)
             return;
           }
 
           this.click[this.try[temp[0]]].state = false;
           this.click[this.try[temp[1]]].state = false;
           this.try = {};
+          if (this.turn == this.playersNumb) {
+            this.turn = 0;
+          }
+          this.turn++;
         }, 1000);
       }
     },
