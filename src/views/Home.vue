@@ -4,15 +4,13 @@
     :class="` bg-${color.four} text-${color.six}`"
   >
     <img
-      class="object-none mb-[20px]"
       src="logo.svg"
-      style="
-        filter: invert(99%) sepia(22%) saturate(2%) hue-rotate(273deg)
-          brightness(113%) contrast(100%);
-      "
+      :style="styleImg"
       alt=""
     />
-    <div class="bg-white w-[504px] rounded-[20px] p-[48px] sm:w-[85vw] sm:p-[30px]">
+    <div
+      class="bg-white w-[504px] rounded-[20px] p-[48px] sm:w-[85vw] sm:p-[30px]"
+    >
       <Option :header="'Select Theme'" :content="themes" />
       <Option :header="'Numbers of Players'" :content="players" />
       <Option :header="'Grid Size'" :content="grid" />
@@ -26,8 +24,7 @@
             items-center
             h-[52px]
             rounded-[26px]
-            sm:h-[45px]
-            sm:mt-[10px]
+            sm:h-[45px] sm:mt-[10px]
           "
           :class="` bg-${color.one} hover:bg-${color.nine}`"
         >
@@ -47,14 +44,17 @@ export default {
       themes: ["Numbers", "Icons"],
       players: 4,
       grid: ["4x4", "6x6"],
+      styleImg: {
+        filter:
+          'invert(99%) sepia(22%) saturate(2%) hue-rotate(273deg) brightness(113%) contrast(100%)',
+        marginBottom: '20px',
+        objectFit: 'none',
+      },
     };
   },
   computed: {
     color() {
       return this.$store.state.color;
-    },
-    set() {
-      return this.$store.state.setting;
     },
   },
   methods: {
@@ -66,8 +66,4 @@ export default {
 };
 </script>
 
-<style>
-.me {
-  cursor: pointer;
-}
-</style>
+<style></style>
