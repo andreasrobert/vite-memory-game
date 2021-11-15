@@ -148,7 +148,7 @@
         >
           <PlayerTurn :player="player" :wins="wins" :turn="turn" />
         </div>
-        <div v-if="playersNumb === 1">sss</div>
+        <SinglePoint v-if="playersNumb === 1" :turn="single" ref="root" />
       </div>
     </div>
   </div>
@@ -157,11 +157,12 @@
 
 <script>
 import { numbers, icons } from "../components/data";
-import { computed, h } from "vue";
+import { ref, h } from "vue";
 import Results from "../components/Results.vue";
 import usePlayerInit from "../composables/usePlayerInit";
 import useShuffleGrid from "../composables/useShuffleGrid";
 import PlayerTurn from "../components/PlayerTurn.vue";
+import SinglePoint from "../components/SinglePoint.vue";
 
 const HelloWorld = {
   render() {
@@ -194,6 +195,7 @@ export default {
       try: {},
       found: {},
       single: 0,
+      first: true,
       turn: 1,
       allowed: true,
     };
@@ -219,6 +221,8 @@ export default {
       this.click = this.initClick();
       this.shuffleGrid();
       this.initPlayer();
+      this.$refs.root.reset();
+      this.first = true;
     },
     changeTheme() {
       return this.$store.dispatch("changeTheme");
@@ -226,9 +230,13 @@ export default {
     clicked(item) {
       let temp = Object.keys(this.try);
 
+      if (this.first) {
+        this.first = false;
+        this.$refs.root.start();
+      }
+
       if (temp.length < 2) {
         if (this.found[item] || this.try[item]) return;
-        this.single++;
         this.click[item].state = true;
         this.try[item] = item;
         temp = Object.keys(this.try);
@@ -237,6 +245,7 @@ export default {
       if (temp.length >= 2 && this.allowed) {
         this.allowed = false;
         setTimeout(() => {
+          this.single++;
           this.allowed = true;
           if (this.click[temp[0]].value === this.click[temp[1]].value) {
             this.found[this.try[temp[0]]] = true;
@@ -258,11 +267,12 @@ export default {
             this.turn = 0;
           }
           this.turn++;
+          console.log(this.turn);
         }, 1000);
       }
     },
   },
-  components: { HelloWorld, Results, PlayerTurn },
+  components: { HelloWorld, Results, PlayerTurn, SinglePoint },
 };
 </script>
 
