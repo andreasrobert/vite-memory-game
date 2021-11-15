@@ -77,23 +77,29 @@
       </div>
     </div>
     <!-- {{set['Numbers of Players']}} -->
-    {{ turn }}
+    <!-- {{ turn }} -->
     <div class="flex">
-      <div v-for="(wins, player) in players" :key="player">
+      <div class="flex flex-col items-center" v-for="(wins, player) in players" :key="player">
         <div
           class="
-            w-[155px]
+            w-[200px]
             flex
+            relative
             items-center
-            rounded-[7px]
+            rounded-[8px]
             p-[21px]
             m-[20px]
             h-[59px]
+            justify-between
           "
-          :class="`${player == turn ? `bg-${color.one}` :`bg-${color.eight}`}`"
+          :class="`${player == turn ? `bg-${color.one} text-${color.ten}` :`bg-${color.eight}`}`"
         >
-          Player {{ player }} {{wins}}
+          Player {{ player }} 
+          
+          <h2>{{wins}}</h2>
+          <div v-if="player == turn" class="transform rotate-45 w-[20px] h-[20px] absolute mx-auto top-[-10px] -inset-x-0" :class=" `bg-${color.one}`"></div>
         </div>
+        <div v-if="player == turn" class="text-[13px] tracking-[5px]" :class="`text-${color.four}`">CURRENT TURN</div>
       </div>
     </div>
   </div>
