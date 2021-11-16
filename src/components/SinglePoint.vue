@@ -73,9 +73,12 @@ export default {
       }, 1000);
     },
     reset() {
-        console.log("reset")
-      clearInterval(this.timer)
+      clearInterval(this.timer);
       this.elapsedTime = 0;
+    },
+    getTime() {
+      clearInterval(this.timer);
+      return this.formattedElapsedTime;
     },
   },
 };

@@ -109,7 +109,7 @@
           }          `"
           @click="clicked(item)"
         >
-          <!-- {{ item }} -->
+          {{ item }}
           <KeepAlive>
             <img
               v-show="
@@ -152,7 +152,8 @@
       </div>
     </div>
   </div>
-  <Results v-if="finish" :players="players" :restart="restart" />
+  <Results v-if="finish && playersNumb > 1" :players="players" :restart="restart" />
+  <SingleResult v-if="finish && playersNumb === 1" :players="players" :restart="restart" :turn="single" :last="last" />
 </template>
 
 <script>
@@ -163,7 +164,7 @@ import usePlayerInit from "../composables/usePlayerInit";
 import useShuffleGrid from "../composables/useShuffleGrid";
 import PlayerTurn from "../components/PlayerTurn.vue";
 import SinglePoint from "../components/SinglePoint.vue";
-
+import SingleResult from "../components/SingleResult.vue";
 const HelloWorld = {
   render() {
     return h("div", [
@@ -198,11 +199,16 @@ export default {
       first: true,
       turn: 1,
       allowed: true,
+      last: undefined
     };
   },
   computed: {
     finish() {
-      return Object.keys(this.found).length === this.gridSize * this.gridSize;
+      if(Object.keys(this.found).length === this.gridSize * this.gridSize){
+        this.last = this.$refs?.root?.getTime()
+        return true
+      }
+      return false
     },
     color() {
       return this.$store.state.color;
@@ -272,7 +278,7 @@ export default {
       }
     },
   },
-  components: { HelloWorld, Results, PlayerTurn, SinglePoint },
+  components: { HelloWorld, Results, PlayerTurn, SinglePoint, SingleResult },
 };
 </script>
 

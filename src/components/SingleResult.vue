@@ -14,11 +14,10 @@
           p-[56px]
         "
       >
-        <h1 class="text-[45px]">{{ tie ? "It's a tie!" : `Player ${winner} wins` }}</h1>
+        <h1 class="text-[45px]">You did it!</h1>
         <h4 class="mb-[20px]">Game over! Here are the results...</h4>
 
         <div
-          v-for="(wins, player) in players"
           class="
             flex
             mb-[15px]
@@ -27,12 +26,25 @@
             justify-between
             w-full
           "
-          :class="`${
-            wins === highScore ? `bg-${color.four} text-${color.ten}` : `bg-${color.eight}`
-          }`"
+          :class="`bg-${color.eight}`"
         >
-          <h1>Player {{ player }} {{ wins === highScore && "(Winner!)" }}</h1>
-          <h1>{{ wins }} Pairs</h1>
+          <h1>Time Elapsed</h1>
+          <h1>{{ last }}</h1>
+        </div>
+
+          <div
+          class="
+            flex
+            mb-[15px]
+            p-[17px]
+            rounded-[8px]
+            justify-between
+            w-full
+          "
+          :class="`bg-${color.eight}`"
+        >
+          <h1>Moves Taken</h1>
+          <h1>{{ turn }} Moves</h1>
         </div>
         <div class="flex mt-[10px] justify-between w-full">
           <div
@@ -90,10 +102,11 @@ export default {
   props: {
     players: Object,
     restart: Function,
+    turn: Number,
+    last: String
   },
   computed: {
     color() {
-      console.log(this.players);
       return this.$store.state.color;
     },
   },
