@@ -3,12 +3,12 @@
     class="justify-center flex flex-col items-center h-screen"
     :class="` bg-${color.four} text-${color.six}`"
   >
-    <!-- <img
+    <img
       src="logo.svg"
       :style="styleImg"
       alt=""
-    /> -->
-    <div></div>
+    />
+    <!-- <div></div> -->
     <div
       class="bg-white w-[504px] rounded-[20px] p-[48px] sm:w-[85vw] sm:p-[30px]"
     >

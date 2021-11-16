@@ -15,7 +15,7 @@
       "
     >
       <div></div>
-      <!-- <img class="object-none" src="logo.svg" alt="" /> -->
+      <img class="object-none" src="logo.svg" alt="" />
       <div class="flex">
         <div
           class="
@@ -109,7 +109,7 @@
           }          `"
           @click="clicked(item)"
         >
-          {{ item }}
+          <!-- {{ item }} -->
           <KeepAlive>
             <img
               v-show="
@@ -167,6 +167,8 @@ import PlayerTurn from "../components/PlayerTurn.vue";
 import SinglePoint from "../components/SinglePoint.vue";
 import SingleResult from "../components/SingleResult.vue";
 import Menu from "../components/Menu.vue";
+import Logo from "../../public/logo.svg";
+
 const HelloWorld = {
   render() {
     return h("div", [
