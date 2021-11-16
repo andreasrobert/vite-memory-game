@@ -12,6 +12,8 @@
           w-[474px]
           rounded-[20px]
           p-[56px]
+          sm:w-[94vw]
+          sm:p-[30px]
         "
       >
         <h1 class="text-[45px]">You did it!</h1>
@@ -24,12 +26,13 @@
             p-[17px]
             rounded-[8px]
             justify-between
+            items-center
             w-full
           "
           :class="`bg-${color.eight}`"
         >
           <h1>Time Elapsed</h1>
-          <h1>{{ last }}</h1>
+          <h1 class="text-[24px]">{{ last }}</h1>
         </div>
 
           <div
@@ -39,12 +42,13 @@
             p-[17px]
             rounded-[8px]
             justify-between
+            items-center
             w-full
           "
           :class="`bg-${color.eight}`"
         >
           <h1>Moves Taken</h1>
-          <h1>{{ turn }} Moves</h1>
+          <h1 class="text-[24px]">{{ turn }} Moves</h1>
         </div>
         <div class="flex mt-[10px] justify-between w-full">
           <div
@@ -56,6 +60,8 @@
               rounded-[26px]
               h-[47px]
               w-[170px]
+              sm:w-[35vw]
+              sm:h-[40px]
             "
             :class="` bg-${color.one} 
         hover:bg-${color.nine}`"
@@ -73,11 +79,13 @@
                 rounded-[26px]
                 h-[47px]
                 w-[170px]
+                sm:w-[35vw]
+                sm:h-[40px]
               "
               :class="` bg-${color.eight} 
         hover:bg-${color.seven}`"
             >
-              Setup New Game
+            New Game
             </div>
           </router-link>
         </div>

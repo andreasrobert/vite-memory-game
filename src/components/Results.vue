@@ -12,6 +12,8 @@
           w-[474px]
           rounded-[20px]
           p-[56px]
+          sm:w-[95vw]
+          sm:p-[19px]
         "
       >
         <h1 class="text-[45px]">{{ tie ? "It's a tie!" : `Player ${winner} wins` }}</h1>
@@ -44,6 +46,8 @@
               rounded-[26px]
               h-[47px]
               w-[170px]
+              sm:w-[39vw]
+                sm:h-[40px]
             "
             :class="` bg-${color.one} 
         hover:bg-${color.nine}`"
@@ -61,11 +65,13 @@
                 rounded-[26px]
                 h-[47px]
                 w-[170px]
+                sm:w-[39vw]
+                sm:h-[40px]
               "
               :class="` bg-${color.eight} 
         hover:bg-${color.seven}`"
             >
-              Setup New Game
+              New Game
             </div>
           </router-link>
         </div>

@@ -4,31 +4,54 @@
       class="fixed flex justify-center items-center w-full h-full"
       style="background-color: #00000075"
     >
-      <div class="bg-white w-[474px] rounded-[20px] p-[56px]">
-        <h1>It's a tie!</h1>
-        <h4>Game over! Here are the results...</h4>
-        <div class="flex">
-          <h1>Player 1</h1>
-          <h1>2 Pairs</h1>
-        </div>
-        <div class="flex justify-between">
-          <div
-            class="cursor-pointer flex justify-center items-center w-[45%]"
-            :class="` bg-${color.one} 
+      <div class="bg-white flex flex-col w-[90vw] rounded-[20px] p-[50px]">
+        <div
+          class="
+            cursor-pointer
+            rounded-[26px]
+            h-[47px]
+            mb-[25px]
+            flex
+            justify-center
+            items-center
+          "
+          :class="` bg-${color.one} 
         hover:bg-${color.nine}`"
-          >
-            Restart
-          </div>
-              <router-link to="/">
-
+        @click="restart"
+        >
+          Restart
+        </div>
+        <router-link to="/">
           <div
-            class="cursor-pointer flex justify-center items-center w-[45%]"
+            class="
+              cursor-pointer
+              rounded-[26px]
+              h-[47px]
+              mb-[25px]
+              flex
+              justify-center
+              items-center
+            "
             :class="` bg-${color.eight} 
         hover:bg-${color.seven}`"
           >
-            Setup New Game
+            New Game
           </div>
-          </router-link>
+        </router-link>
+        <div
+          class="
+            cursor-pointer
+            rounded-[26px]
+            h-[47px]
+            flex
+            justify-center
+            items-center
+          "
+          :class="` bg-${color.eight} 
+        hover:bg-${color.seven}`"
+        @click="handleMenu"
+        >
+          Resume Game
         </div>
       </div>
     </div>
@@ -37,6 +60,10 @@
 
 <script>
 export default {
+  props: {
+    handleMenu: Function,
+    restart: Function,
+  },
   computed: {
     color() {
       return this.$store.state.color;

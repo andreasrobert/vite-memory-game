@@ -54,7 +54,7 @@
           "
           :class="` bg-${color.one} 
         hover:bg-${color.nine}`"
-          @click="restart"
+          @click="handleMenu"
         >
           Menu
         </div>
@@ -153,6 +153,7 @@
     </div>
   </div>
   <Results v-if="finish && playersNumb > 1" :players="players" :restart="restart" />
+  <Menu v-if="showMenu" class="lg:hidden" :handleMenu="handleMenu" :restart="restart" />
   <SingleResult v-if="finish && playersNumb === 1" :players="players" :restart="restart" :turn="single" :last="last" />
 </template>
 
@@ -165,6 +166,7 @@ import useShuffleGrid from "../composables/useShuffleGrid";
 import PlayerTurn from "../components/PlayerTurn.vue";
 import SinglePoint from "../components/SinglePoint.vue";
 import SingleResult from "../components/SingleResult.vue";
+import Menu from "../components/Menu.vue";
 const HelloWorld = {
   render() {
     return h("div", [
@@ -199,7 +201,8 @@ export default {
       first: true,
       turn: 1,
       allowed: true,
-      last: undefined
+      last: undefined,
+      showMenu: false
     };
   },
   computed: {
@@ -218,6 +221,9 @@ export default {
     },
   },
   methods: {
+    handleMenu(){
+      this.showMenu =  !this.showMenu
+    },
     restart() {
       this.turn = 1;
       this.single = 0;
@@ -236,7 +242,7 @@ export default {
     clicked(item) {
       let temp = Object.keys(this.try);
 
-      if (this.first) {
+      if (this.first && this.playersNumb === 1) {
         this.first = false;
         this.$refs.root.start();
       }
@@ -278,7 +284,7 @@ export default {
       }
     },
   },
-  components: { HelloWorld, Results, PlayerTurn, SinglePoint, SingleResult },
+  components: { HelloWorld, Results, PlayerTurn, SinglePoint, SingleResult, Menu },
 };
 </script>
 
