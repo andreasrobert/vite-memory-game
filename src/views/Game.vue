@@ -14,8 +14,8 @@
         md:w-[95vw]
       "
     >
-      <div></div>
-      <img class="object-none" src="logo.svg" alt="" />
+      <!-- <div></div> -->
+      <img class="object-none" src="/logo.svg" alt="" />
       <div class="flex">
         <div
           class="

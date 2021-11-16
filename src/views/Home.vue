@@ -4,7 +4,7 @@
     :class="` bg-${color.four} text-${color.six}`"
   >
     <img
-      src="logo.svg"
+      src="/logo.svg"
       :style="styleImg"
       alt=""
     />
