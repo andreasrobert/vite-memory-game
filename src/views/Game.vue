@@ -153,7 +153,7 @@
     </div>
   </div>
   <Results v-if="finish && playersNumb > 1" :players="players" :restart="restart" />
-  <MenuVue v-if="showMenu" class="lg:hidden" :handleMenu="handleMenu" :restart="restart" />
+  <MenuMobile v-if="showMenu" class="lg:hidden" :handleMenu="handleMenu" :restart="restart" />
   <SingleResult v-if="finish && playersNumb === 1" :players="players" :restart="restart" :turn="single" :last="last" />
 </template>
 
@@ -166,7 +166,7 @@ import useShuffleGrid from "../composables/useShuffleGrid";
 import PlayerTurn from "../components/PlayerTurn.vue";
 import SinglePoint from "../components/SinglePoint.vue";
 import SingleResult from "../components/SingleResult.vue";
-import MenuVue from "../components/Menu.vue";
+import MenuMobile from "../components/MenuMobile.vue";
 
 const HelloWorld = {
   render() {
@@ -285,7 +285,7 @@ export default {
       }
     },
   },
-  components: { HelloWorld, Results, PlayerTurn, SinglePoint, SingleResult, MenuVue },
+  components: { HelloWorld, Results, PlayerTurn, SinglePoint, SingleResult, MenuMobile },
 };
 </script>
 
