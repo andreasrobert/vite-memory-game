@@ -4,7 +4,7 @@
     :class="` bg-${color.four} text-${color.six}`"
   >
   <router-link to="/lobby">
-  <div class="absolute top-[5px] right-[12px]">ss</div>
+  <!-- <div class="absolute top-[5px] right-[12px]">ss</div> -->
   </router-link>
     <img
       src="/logo.svg"
