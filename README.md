@@ -1,29 +1,10 @@
 # memory-game
 
-This template should help get you started developing with Vue 3 in Vite.
+check out the game [memory-vite.netlify.app](https://memory-vite.netlify.app/)
 
-## Recommended IDE Setup
+Check out the Backend [github.com/andreasrobert/memory-game-server](https://github.com/andreasrobert/memory-game-server)
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar) (and disable Vetur).
+Test your memory alone or with friends, local or online
 
-## Customize configuration
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
+Build using Go with gorilla/websocket and Vue with Composition API and Vuex and tailwind
