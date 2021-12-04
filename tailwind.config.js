@@ -14,7 +14,7 @@ module.exports = {
       "bg-grey",
       "bg-gblue", "text-gblue",
       "bg-blue", "text-blue", 
-      "bg-white", "text-white", "text-dblue", "text-blue",
+      "bg-white", "text-white", "text-dblue", "text-blue", "hover:bg-gdblue",
       "w-[112px]", "w-[256px]","hover:bg-lorange","bg-dwhite","hover:bg-blue"
     ],
   },

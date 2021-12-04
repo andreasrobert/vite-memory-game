@@ -3,9 +3,9 @@
     class="justify-center flex flex-col items-center h-screen"
     :class="` bg-${color.four} text-${color.six}`"
   >
-  <!-- <router-link to="/lobby">
-  <div class="absolute top-[5px] right-[12px]">ss</div>
-  </router-link> -->
+  <router-link to="/lobby">
+  <div @click="goOnline" class="absolute top-[5px] right-[12px]">Online Multiplayer</div>
+  </router-link>
     <img
       src="/logo.svg"
       :style="styleImg"
@@ -41,6 +41,7 @@
 
 <script>
 import Option from "../components/Option.vue";
+import store from "../store";
 
 export default {
   data() {
@@ -64,6 +65,11 @@ export default {
   methods: {
     changeTheme() {
       return this.$store.dispatch("changeTheme");
+    },
+    goOnline() {
+      let header = 'Numbers of Players'
+      let item = 2
+      store.commit("changeSettings", { header, item });
     },
   },
   components: { Option },

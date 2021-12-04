@@ -18,7 +18,7 @@
       player == turn ? `bg-${color.one} text-${color.ten}` : `bg-${color.eight}`
     }`"
   >
-    <div class="sm:hidden">Player {{ player }}</div>
+    <div class="sm:hidden">Player {{ player }} {{playerTurn}}</div>
     <div class="lg:hidden">P{{ player }}</div>
 
     <h2 class="text-2xl">{{ wins }}</h2>
@@ -41,8 +41,13 @@
     v-if="player == turn"
     class="text-[13px] tracking-[5px] mm:hidden"
     :class="`text-${color.four}`"
-  >
-    CURRENT TURN
+  > 
+  <div v-if="turn == playerTurn">
+  YOUR TURN
+  </div>
+  <div v-if="turn != playerTurn">
+    CURRENT TURN 
+   </div>
   </div>
 </template>
 
@@ -56,6 +61,9 @@ export default {
   computed: {
     color() {
       return this.$store.state.color;
+    },
+    playerTurn(){
+      return this.$store.state.playerTurn;
     },
   },
 };

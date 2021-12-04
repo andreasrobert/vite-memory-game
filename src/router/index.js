@@ -27,11 +27,11 @@ const router = createRouter({
     },
     {
       path: '/online-game',
-      name: 'Online',
+      name: 'OnlineGame',
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import('../views/Online.vue')
+      component: () => import('../views/OnlineGame.vue')
     },
     
   ]

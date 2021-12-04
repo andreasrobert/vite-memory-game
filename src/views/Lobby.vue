@@ -3,92 +3,201 @@
     class="justify-center flex flex-col items-center h-screen"
     :class="` bg-${color.four} text-${color.six}`"
   >
+   <router-link to="/">
+  <div class="absolute top-[5px] right-[12px]" @click="back">Back</div>
+  </router-link>
     <div class="flex">
-    <img
-      src="/logo.svg"
-      :style="styleImg"
-      alt=""
-    />
-    online {{roomInput}}
+      <!-- <img src="/logo.svg" :style="styleImg" alt="" @click="sendMessage" /> -->
+      <img src="/logo.svg" :style="styleImg" alt="" @click="makeOnlineGame" />
+      online 
     </div>
     <!-- <div></div> -->
     <div
       class="bg-white w-[504px] rounded-[20px] p-[48px] sm:w-[85vw] sm:p-[30px]"
     >
-    <div v-if="create && !join">
-    <form  @submit.prevent="joinRoom">
-    <input v-model="roomInput" placeholder="Room name . . . " />    
-    </form>
-      <router-link to="/online-game">
+      <div v-if="create && !join">
+        <form @submit.prevent="joinRoom">
+          <input
+            class="rounded-[40px]"
+            style="
+              border: 1px solid black;
+              width: 100%;
+              padding: 13px 13px 13px 23px;
+            "
+            v-model="roomInput"
+            placeholder="Room name . . . "
+          />
+          <div
+            class="
+              
+              text-white text-2xl
+              flex
+              justify-center
+              items-center
+              h-[52px]
+              mt-[14px]
+              rounded-[26px]
+              sm:h-[45px] sm:mt-[10px]
+            "
+            :class="`bg-${color.one}  text-${color.ten} ${!created && `cursor-pointer hover:bg-${color.nine}`}`"
+            @click="joinRoom"
+          >
+          <div v-if="!created">
+            Create room as Player 1
+          </div>
+          <div v-if="created">
+            Playing as Player 1
+          </div>
+            
+          </div>
+          
+      </form>
+        <div v-for="player in gameSets['Numbers of Players']-1" :key="player">
+          <OnlinePlayerButton :player="player+1" :filled="filled" />
+        </div>
+        
+        
+        <!-- <router-link to="/online-game">
+        </router-link> -->
         <div
-          class="
-            cursor-pointer
-            text-white text-2xl
-            flex
-            justify-center
-            items-center
-            h-[52px]
-            rounded-[26px]
-            sm:h-[45px] sm:mt-[10px]
-          "
-          :class="`bg-${color.four} text-${color.ten}`"
-        >
-          You are Player 1
+            class="
+              cursor-pointer
+              text-white text-2xl
+              flex
+              justify-center
+              items-center
+              h-[52px]
+              mt-[14px]
+              rounded-[26px]
+              sm:h-[45px] sm:mt-[10px]
+            "
+            :class="`bg-${color.four} hover:bg-${color.three} text-${color.ten}`"
+            @click="back"
+          >
+            Back
+          </div>
+      </div>
+
+       <div v-if="!create && join">
+        <form @submit.prevent="joinARoom">
+          <input
+            class="rounded-[40px]"
+            style="
+              border: 1px solid black;
+              width: 100%;
+              padding: 13px 13px 13px 23px;
+            "
+            v-model="roomInput"
+            placeholder="Room name . . . "
+          />
+          <div
+            class="
+              
+              text-white text-2xl
+              flex
+              justify-center
+              items-center
+              h-[52px]
+              mt-[14px]
+              rounded-[26px]
+              sm:h-[45px] sm:mt-[10px]
+            "
+            :class="`bg-${color.one}  text-${color.ten} ${!created && `cursor-pointer hover:bg-${color.nine}`}`"
+            @click="joinARoom"
+            v-if="!joined"
+          >
+          <div v-if="!created">
+            Join room
+          </div>
+          </div>
+          
+      </form>
+      <div v-if="joined">
+        <div v-for="player in gameSets['Numbers of Players']" :key="player">
+          <OnlinePlayerButton :player="player" :filled="filled" />
         </div>
-      </router-link>
-    </div>
-
-    <div v-if="!create && !join">
-      <Option :header="'Select Theme'" :content="themes" />
-      <Option :header="'Numbers of Players'" :content="players" />
-      <Option :header="'Grid Size'" :content="grid" />
-      <Option :header="'Create or Join Game'"/>
-
-          <div class="flex mt-[14px] sm:mt-[10px]  justify-between">
+        </div>
+        
+        
+        <!-- <router-link to="/online-game">
+        </router-link> -->
         <div
-          class="
-            cursor-pointer
-            text-white text-2xl
-            flex
-            justify-center
-            items-center
-            h-[52px]
-            sm:text-[5vw]
-            w-[192px] sm:w-[32vw]
-            rounded-[26px]
-            sm:h-[45px] 
-          "
-          :class="` bg-${color.one} hover:bg-${color.nine}`"
-          @click="createGame"
-        >
-          Create Game
+            class="
+              cursor-pointer
+              text-white text-2xl
+              flex
+              justify-center
+              items-center
+              h-[52px]
+              mt-[14px]
+              rounded-[26px]
+              sm:h-[45px] sm:mt-[10px]
+            "
+            :class="`bg-${color.four} hover:bg-${color.three} text-${color.ten}`"
+            @click="back"
+          >
+            Back
+          </div>
+      </div>
+
+
+      <div v-if="!create && !join">
+        <Option :header="'Select Theme'" :content="themes" />
+        <OptionNumber :header="'Numbers of Players'" :content="players" />
+        <Option :header="'Grid Size'" :content="grid" />
+        <Option :header="'Create or Join Game'" />
+
+        <div class="flex mt-[14px] sm:mt-[10px] justify-between">
+          <div
+            class="
+              cursor-pointer
+              text-white text-2xl
+              flex
+              justify-center
+              items-center
+              h-[52px]
+              sm:text-[5vw]
+              w-[192px]
+              sm:w-[32vw]
+              rounded-[26px]
+              sm:h-[45px]
+            "
+            :class="` bg-${color.one} hover:bg-${color.nine}`"
+            @click="createGame"
+          >
+            Create Game
+          </div>
+          <div
+            class="
+              cursor-pointer
+              text-white text-2xl
+              flex
+              justify-center
+              items-center
+              h-[52px]
+              sm:text-[5vw]
+              w-[192px]
+              sm:w-[32vw]
+              rounded-[26px]
+              sm:h-[45px]
+            "
+            :class="` bg-${color.one} hover:bg-${color.nine}`"
+            @click="joinGame"
+          >
+            Join Game
+          </div>
         </div>
-         <div
-          class="
-            cursor-pointer
-            text-white text-2xl
-            flex
-            justify-center
-            items-center
-            h-[52px]
-            sm:text-[5vw]
-            w-[192px] sm:w-[32vw]
-            rounded-[26px]
-            sm:h-[45px] 
-          "
-          :class="` bg-${color.one} hover:bg-${color.nine}`"
-          @click=""
-        >
-          Join Game
-        </div>
-        </div>
-        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import store from "../store";
 import Option from "../components/Option.vue";
+import OnlinePlayerButton from "../components/OnlinePlayerButton.vue";
+import OptionNumber from "../components/OptionNumber.vue";
+import useShuffleGrid from "../composables/useShuffleGrid";
 
 export default {
   data() {
@@ -98,114 +207,187 @@ export default {
       grid: ["4x4", "6x6"],
       styleImg: {
         filter:
-          'invert(99%) sepia(22%) saturate(2%) hue-rotate(273deg) brightness(113%) contrast(100%)',
-        marginBottom: '20px',
-        objectFit: 'none',
+          "invert(99%) sepia(22%) saturate(2%) hue-rotate(273deg) brightness(113%) contrast(100%)",
+        marginBottom: "20px",
+        objectFit: "none",
       },
-      create:false,
-      join:false,
-      ws: null,
-        serverUrl: "ws://localhost:8080/ws",
-        roomInput: null,
-        rooms: [],
-        user: {
-        name: "p1"
-        },
-        users: [],
-        initialReconnectDelay: 1000,
-        currentReconnectDelay: 0,
-        maxReconnectDelay: 16000
+      create: false,
+      join: false,
+      serverUrl: "ws://localhost:8080/ws",
+      roomInput: null,
+      rooms: [],
+      user: {
+        name: "p1",
+      },
+      users: [],
+      initialReconnectDelay: 1000,
+      currentReconnectDelay: 0,
+      maxReconnectDelay: 16000,
+      filled:1,
+      created: false,
+      joined: false
     };
   },
-  mounted(){
-      this.connect()
+  mounted() {
+    // this.connect();
   },
   computed: {
     color() {
       return this.$store.state.color;
+    },
+    gameSets(){
+      return this.$store.state.setting;
+    },
+    ws(){
+      return this.$store.state.ws;
+    },
+    playerTurn(){
+      return this.$store.state.playerTurn;
     },
   },
   methods: {
     changeTheme() {
       return this.$store.dispatch("changeTheme");
     },
-    createGame(){
-        return this.create = true
+    createGame() {
+      return (this.create = true);
     },
-    connect() {
-      this.connectToWebsocket();
+    joinGame(){
+      return this.join = true
+    },
+    back(){
+      if(this.ws){
+        this.ws.close()
+        this.ws = null;
+      }
+      this.filled = 1
+      this.created = false
+      this.joined = false
+      this.join = false
+      return this.create = false
     },
     connectToWebsocket() {
-        console.log("going")
-      this.ws = new WebSocket(this.serverUrl + "?name=" + new Date());
-      this.ws.addEventListener('open', (event) => { this.onWebsocketOpen(event) });
-      this.ws.addEventListener('message', (event) => { this.handleNewMessage(event) });
-      this.ws.addEventListener('close', (event) => { this.onWebsocketClose(event) });
+      if(this.ws){
+        this.ws.close()
+        this.ws = null;
+      }
+      console.log("going");
+      let sets = this.gameSets
+      let theme = sets['Select Theme']
+      let grid = sets['Grid Size']
+      let size = sets['Numbers of Players']
+
+      store.commit("initTurn", 1);
+      store.commit("initWs", new WebSocket(
+        `ws://localhost:4000/ws?name=${this.roomInput}&theme=${theme}&grid=${grid}&size=${size}&create=true`
+      ))
+
+      this.ws.addEventListener("open", (event) => {
+        this.onWebsocketOpen(event);
+      });
+      this.ws.addEventListener("message", (event) => {
+        this.handleNewMessage(event);
+      });
+      this.ws.addEventListener("close", (event) => {
+        // this.onWebsocketClose(event);
+      });
     },
     onWebsocketOpen() {
       console.log("connected to WS!");
+      this.created = true
+      this.joined = true
       this.currentReconnectDelay = 1000;
     },
 
-    onWebsocketClose() {
-      this.ws = null;
-
-      setTimeout(() => {
-        this.reconnectToWebsocket();
-      }, this.currentReconnectDelay);
-
-    },
-
-    reconnectToWebsocket() {
-      if (this.currentReconnectDelay < this.maxReconnectDelay) {
-        this.currentReconnectDelay *= 2;
+    joinARoom() {
+      if(!this.roomInput) return console.log("put something in to join")
+      
+      if(this.ws){
+        this.ws.close()
+        this.ws = null;
       }
-      this.connectToWebsocket();
+      console.log("going");
+      let sets = this.gameSets
+      let theme = sets['Select Theme']
+      let grid = sets['Grid Size']
+      let size = sets['Numbers of Players']
+
+
+      store.commit("initWs", new WebSocket(
+        `ws://localhost:4000/ws?name=${this.roomInput}&theme=${theme}&grid=${grid}&size=${size}&create=false`
+      ))
+
+      this.ws.addEventListener("open", (event) => {
+        this.onWebsocketOpen(event);
+      });
+      this.ws.addEventListener("message", (event) => {
+        this.handleNewMessage(event);
+      });
+      this.ws.addEventListener("close", (event) => {
+        // this.onWebsocketClose(event);
+      });
     },
+
+    // onWebsocketClose() {
+    //   this.ws = null;
+
+    //   setTimeout(() => {
+    //     this.reconnectToWebsocket();
+    //   }, this.currentReconnectDelay);
+    // },
+
+    // reconnectToWebsocket() {
+    //   if (this.currentReconnectDelay < this.maxReconnectDelay) {
+    //     this.currentReconnectDelay *= 2;
+    //   }
+    //   this.connectToWebsocket();
+    // },
 
     handleNewMessage(event) {
       let data = event.data;
       data = data.split(/\r?\n/);
-        console.log(data)
-      console.log(JSON.parse(data))
 
       for (let i = 0; i < data.length; i++) {
         let msg = JSON.parse(data[i]);
-        console.log(msg)
+        console.log(msg);
         switch (msg.action) {
-          case "send-message":
-            this.handleChatMessage(msg);
-            break;
-          case "user-join":
-            this.handleUserJoined(msg);
-            break;
-          case "user-left":
-            this.handleUserLeft(msg);
-            break;
           case "room-joined":
             this.handleRoomJoined(msg);
             break;
+          case "player-added":
+            this.filled = +msg.message.filled
+            this.changeSettings('Numbers of Players', msg.message.size)
+            this.changeSettings('Grid Size', msg.message.grid)
+            this.changeSettings('Select Theme', msg.message.theme)
+            if(!this.playerTurn){
+              store.commit("initTurn", msg.sender);
+            }
+            if(this.create && msg.sender >= msg.message.size  ){
+                this.makeOnlineGame()
+            }
+            break;
+          case "init-game":
+            console.log("making game",msg.message)
+            store.commit("changeMulti", msg.message)
+            this.$router.push('online-game')
           default:
             break;
         }
-
       }
     },
-    handleChatMessage(msg) {
-      const room = this.findRoom(msg.target.id);
-      if (typeof room !== "undefined") {
-        room.messages.push(msg);
-      }
+    makeOnlineGame(){
+      const { click, array, gridSize, initClick, shuffleGrid } = useShuffleGrid();
+      let data= {click:click, array:array, gridSize:gridSize.value, initClick:initClick, shuffleGrid:shuffleGrid}
+      console.log(data)
+      this.ws.send(
+        JSON.stringify({
+          action: "init-game",
+          message: data,
+        })
+      );
     },
-    handleUserJoined(msg) {
-      this.users.push(msg.sender);
-    },
-    handleUserLeft(msg) {
-      for (let i = 0; i < this.users.length; i++) {
-        if (this.users[i].id == msg.sender.id) {
-          this.users.splice(i, 1);
-        }
-      }
+    changeSettings(header, item) {
+      store.commit("changeSettings", { header, item });
     },
     handleRoomJoined(msg) {
       room = msg.target;
@@ -213,45 +395,25 @@ export default {
       room["messages"] = [];
       this.rooms.push(room);
     },
-    sendMessage(room,array) {
-      if (room.newMessage !== "") {
-        this.ws.send(JSON.stringify({
-          action: 'send-message',
-          message: array,
-          target: {
-            id: room.id,
-            name: room.name
-          }
-        }));
-        room.newMessage = "";
-      }
-    },
-    findRoom(roomId) {
-      for (let i = 0; i < this.rooms.length; i++) {
-        if (this.rooms[i].id === roomId) {
-          return this.rooms[i];
-        }
-      }
+    sendMessage() {
+      console.log("sendddingg");
+      this.ws.send(
+        JSON.stringify({
+          action: "sending a message",
+          message: "hellllooo",
+        })
+      );
     },
     joinRoom() {
-      this.ws.send(JSON.stringify({ action: 'join-room', message: this.roomInput }));
-      this.roomInput = "";
-    },
-    leaveRoom(room) {
-      this.ws.send(JSON.stringify({ action: 'leave-room', message: room.id }));
-
-      for (let i = 0; i < this.rooms.length; i++) {
-        if (this.rooms[i].id === room.id) {
-          this.rooms.splice(i, 1);
-          break;
-        }
+      if (this.roomInput){
+        this.connectToWebsocket()
+      } else{
+        console.log("put something in")
       }
+      
     },
-    joinPrivateRoom(room) {
-      this.ws.send(JSON.stringify({ action: 'join-room-private', message: room.id }));
-    }
   },
-  components: { Option },
+  components: { Option, OnlinePlayerButton, OptionNumber },
 };
 </script>
 

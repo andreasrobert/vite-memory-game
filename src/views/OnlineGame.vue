@@ -35,7 +35,7 @@
         hover:bg-${color.nine}`"
           @click="restart"
         >
-          Restart
+          Restart O
         </div>
         <div
           class="
@@ -107,7 +107,7 @@
               ? 'w-[10vh] h-[10vh] sm:w-[21vw] sm:h-[21vw]'
               : 'w-[7vh] h-[7vh] sm:w-[12vw] sm:h-[12vw]'
           }          `"
-          @click="clicked(item)"
+          @click="clickOnline(item)"
         >
           <!-- {{ item }} -->
           <KeepAlive>
@@ -180,15 +180,9 @@ const HelloWorld = {
 export default {
   setup() {
     const { players, playersNumb, initPlayer } = usePlayerInit();
-    const { click, array, gridSize, initClick, shuffleGrid } = useShuffleGrid();
     return {
       players,
       playersNumb,
-      array,
-      gridSize,
-      click,
-      shuffleGrid,
-      initClick,
       initPlayer,
     };
   },
@@ -220,8 +214,71 @@ export default {
     set() {
       return this.$store.state.setting;
     },
+    click(){
+      return this.$store.state.multi.click
+    },
+    array(){
+      return this.$store.state.multi.array
+    },
+    gridSize(){
+      return this.$store.state.multi.gridSize
+    },
+    ws(){
+      return this.$store.state.ws;
+    },
+    playerTurn(){
+      return this.$store.state.playerTurn;
+    },
+  },
+   mounted() {
+    this.connectToWebsocket();
   },
   methods: {
+    connectToWebsocket() {
+      this.ws.addEventListener("open", (event) => {
+        this.onWebsocketOpen(event);
+      });
+      this.ws.addEventListener("message", (event) => {
+        this.handleNewMessage(event);
+      });
+      this.ws.addEventListener("close", (event) => {
+        // this.onWebsocketClose(event);
+      });
+    },
+    handleNewMessage(event) {
+      let data = event.data;
+      data = data.split(/\r?\n/);
+
+      for (let i = 0; i < data.length; i++) {
+        let msg = JSON.parse(data[i]);
+        console.log(msg);
+        switch (msg.action) {
+          case "room-joined":
+            this.handleRoomJoined(msg);
+            break;
+          case "player-added":
+            this.filled = +msg.message.filled
+            this.changeSettings('Numbers of Players', msg.message.size)
+            this.changeSettings('Grid Size', msg.message.grid)
+            this.changeSettings('Select Theme', msg.message.theme)
+            if(this.create && this.filled >= msg.message.size  ){
+                this.makeOnlineGame()
+            }
+            break;
+          case "init-game":
+            console.log("making game",msg.message)
+            store.commit("changeMulti", msg.message)
+            this.$router.push('online-game')
+            break;
+          case "item-clicked":
+            console.log("something")
+            this.clicked(msg.message)
+            break;
+          default:
+            break;
+        }
+      }
+    },
     handleMenu(){
       this.showMenu =  !this.showMenu
     },
@@ -231,16 +288,27 @@ export default {
       this.found = {};
       this.try = {};
 
-      this.click = this.initClick();
-      this.shuffleGrid();
+      //.click = this.initClick();
+      //this.shuffleGrid();
       this.initPlayer();
-      this.$refs.root.reset();
+      this.playersNumb === 1 && this.$refs.root.reset();
       this.first = true;
     },
     changeTheme() {
       return this.$store.dispatch("changeTheme");
     },
+    clickOnline(item){
+      console.log(this.playerTurn, this.turn)
+      if(this.playerTurn != this.turn) return
+      this.ws.send(
+          JSON.stringify({
+            action: "item-clicked",
+            message: item,
+          })
+        );
+    },
     clicked(item) {
+      
       let temp = Object.keys(this.try);
 
       if (this.first && this.playersNumb === 1) {

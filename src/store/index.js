@@ -31,18 +31,39 @@ export default createStore({
       'Select Theme':'Numbers',
       'Numbers of Players': 1,
       'Grid Size':"4x4"
-    }
+    },
+    multi:null,
+    ws: null,
+    playerTurn: null,
   },
   mutations: {
     changeSettings(state, payload){
       state.setting[payload.header] = payload.item
     },
 
+    changeMulti(state, payload){
+      state.multi = payload
+    },
+    initWs(state, payload){
+      state.ws = payload
+    },
+    initTurn(state, payload){
+      state.playerTurn = payload
+    },
 
   },
   actions: {
     changeSettings({commit}){
       commit('changeSettings')
+    },
+    changeMulti(commit){
+      commit('changeMulti')
+    },
+    initWs(commit){
+      commit('initWs')
+    },
+    initTurn(commit){
+      commit('initTurn')
     },
   
   },

@@ -3,7 +3,7 @@ import { useStore } from "vuex";
 import { icons } from "../components/data";
 import store from "../store";
 
-export default function useShuffleGrid() {
+export default function useOnlineShuffle() {
   // const store = useStore();
   const settings = computed(() => store.state.setting);
   const gridSize = ref(settings.value["Grid Size"] === "4x4" ? 4 : 6);

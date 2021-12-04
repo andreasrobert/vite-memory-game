@@ -234,7 +234,7 @@ export default {
       this.click = this.initClick();
       this.shuffleGrid();
       this.initPlayer();
-      this.$refs.root.reset();
+      this.playersNumb === 1 && this.$refs.root.reset();
       this.first = true;
     },
     changeTheme() {
