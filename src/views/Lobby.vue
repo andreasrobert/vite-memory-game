@@ -279,7 +279,7 @@ export default {
 
       store.commit("initTurn", 1);
       store.commit("initWs", new WebSocket(
-        `ws://memory-game-govite.herokuapp.com/ws?name=${this.roomInput}&theme=${theme}&grid=${grid}&size=${size}&create=true`
+        `wss://memory-game-govite.herokuapp.com/ws?name=${this.roomInput}&theme=${theme}&grid=${grid}&size=${size}&create=true`
       ))
 
       this.ws.addEventListener("open", (event) => {
@@ -314,7 +314,7 @@ export default {
 
 
       store.commit("initWs", new WebSocket(
-        `ws://memory-game-govite.herokuapp.com/ws?name=${this.roomInput}&theme=${theme}&grid=${grid}&size=${size}&create=false`
+        `wss://memory-game-govite.herokuapp.com/ws?name=${this.roomInput}&theme=${theme}&grid=${grid}&size=${size}&create=false`
       ))
 
       this.ws.addEventListener("open", (event) => {
