@@ -289,7 +289,7 @@ export default {
         this.handleNewMessage(event);
       });
       this.ws.addEventListener("close", (event) => {
-        // this.onWebsocketClose(event);
+        this.onWebsocketClose(event);
       });
     },
     onWebsocketOpen() {
@@ -324,17 +324,18 @@ export default {
         this.handleNewMessage(event);
       });
       this.ws.addEventListener("close", (event) => {
-        // this.onWebsocketClose(event);
+        this.onWebsocketClose(event);
       });
     },
 
-    // onWebsocketClose() {
-    //   this.ws = null;
+    onWebsocketClose() {
+      // this.ws.close()
+      this.ws = null;
 
-    //   setTimeout(() => {
-    //     this.reconnectToWebsocket();
-    //   }, this.currentReconnectDelay);
-    // },
+      // setTimeout(() => {
+      //   this.reconnectToWebsocket();
+      // }, this.currentReconnectDelay);
+    },
 
     // reconnectToWebsocket() {
     //   if (this.currentReconnectDelay < this.maxReconnectDelay) {
@@ -366,6 +367,9 @@ export default {
                 this.makeOnlineGame()
             }
             break;
+          case "player-deleted":
+            this.filled = +msg.message.number
+            break
           case "init-game":
             console.log("making game",msg.message)
             store.commit("changeMulti", msg.message)

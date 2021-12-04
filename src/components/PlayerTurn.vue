@@ -18,8 +18,10 @@
       player == turn ? `bg-${color.one} text-${color.ten}` : `bg-${color.eight}`
     }`"
   >
-    <div class="sm:hidden">Player {{ player }} {{playerTurn}}</div>
-    <div class="lg:hidden">P{{ player }}</div>
+    <div class="sm:hidden"  v-if="player != playerTurn">Player {{ player }}</div>
+    <div class="sm:hidden"  v-if=" player == playerTurn">You</div>
+    <div class="lg:hidden"  v-if=" player != playerTurn">P{{ player }}</div>
+    <div class="lg:hidden"  v-if=" player == playerTurn">You</div>
 
     <h2 class="text-2xl">{{ wins }}</h2>
     <div
