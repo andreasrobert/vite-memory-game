@@ -8,7 +8,7 @@
       h-[52px]
       mt-[14px]
       rounded-[26px]
-      sm:h-[45px] sm:mt-[10px]
+      sm:h-[45px] sm:mt-[10px] sm:text-[5vw]
     "
     :class="`bg-${color.two} text-${color.ten}`"
   >

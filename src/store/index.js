@@ -29,7 +29,7 @@ export default createStore({
     color: themeOne,
     setting:{
       'Select Theme':'Numbers',
-      'Numbers of Players': 1,
+      'Numbers of Players': 2,
       'Grid Size':"4x4"
     },
     multi:null,

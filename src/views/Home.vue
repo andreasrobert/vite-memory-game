@@ -4,7 +4,7 @@
     :class="` bg-${color.four} text-${color.six}`"
   >
   <router-link to="/lobby">
-  <div @click="goOnline" class="absolute top-[5px] right-[12px]">Online Multiplayer</div>
+  <div @click="goOnline" class="absolute top-[15px] p-[5px] px-[15px] rounded-[26px] text-white text-[19px] right-[17px]" :class="` bg-${color.one} hover:bg-${color.nine}`">Play Online</div>
   </router-link>
     <img
       src="/logo.svg"

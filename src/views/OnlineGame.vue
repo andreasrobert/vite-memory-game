@@ -22,26 +22,6 @@
             flex
             text-2xl
             cursor-pointer
-            text-white
-            justify-center
-            rounded-[26px]
-            items-center
-            h-[52px]
-            w-[130px]
-            mm:h-[43px]
-            sm:h-[38px] sm:w-[100px] sm:text-[20px] sm:hidden
-          "
-          :class="` bg-${color.one} 
-        hover:bg-${color.nine}`"
-          @click="restart"
-        >
-          Restart O
-        </div>
-        <div
-          class="
-            flex
-            text-2xl
-            cursor-pointer
             text-dblue
             justify-center
             rounded-[26px]
@@ -58,7 +38,7 @@
         >
           Menu
         </div>
-        <router-link to="/">
+        <router-link to="/lobby">
           <div
             class="
               ml-[20px]
@@ -76,6 +56,7 @@
             "
             :class="` bg-${color.eight} 
         hover:bg-${color.seven}`"
+        @click="back"
           >
             New Game
           </div>
@@ -152,21 +133,21 @@
       </div>
     </div>
   </div>
-  <Results v-if="finish && playersNumb > 1" :players="players" :restart="restart" />
-  <MenuMobile v-if="showMenu" class="lg:hidden" :handleMenu="handleMenu" :restart="restart" />
+  <OnlineResults v-if="finish && playersNumb > 1" :back="back" :players="players" />
+  <MenuOnline v-if="showMenu" class="lg:hidden" :handleMenu="handleMenu" :back="back" />
   <SingleResult v-if="finish && playersNumb === 1" :players="players" :restart="restart" :turn="single" :last="last" />
 </template>
 
 <script>
 import { numbers, icons } from "../components/data";
 import { ref, h } from "vue";
-import Results from "../components/Results.vue";
+import OnlineResults from "../components/OnlineResults.vue";
 import usePlayerInit from "../composables/usePlayerInit";
-import useShuffleGrid from "../composables/useShuffleGrid";
 import PlayerTurn from "../components/PlayerTurn.vue";
 import SinglePoint from "../components/SinglePoint.vue";
 import SingleResult from "../components/SingleResult.vue";
-import MenuMobile from "../components/MenuMobile.vue";
+import MenuOnline from "../components/MenuOnline.vue";
+import store from "../store";
 
 const HelloWorld = {
   render() {
@@ -244,6 +225,16 @@ export default {
       this.ws.addEventListener("close", (event) => {
         // this.onWebsocketClose(event);
       });
+    },
+      back(){
+      if(this.ws){
+        this.ws.close()
+        this.ws = null;
+        store.commit("initWs", null)
+        store.commit("initTurn", null)
+        store.commit("changeMulti", null)
+
+      }
     },
     handleNewMessage(event) {
       let data = event.data;
@@ -353,7 +344,7 @@ export default {
       }
     },
   },
-  components: { HelloWorld, Results, PlayerTurn, SinglePoint, SingleResult, MenuMobile },
+  components: { HelloWorld, OnlineResults, PlayerTurn, SinglePoint, SingleResult, MenuOnline },
 };
 </script>
 

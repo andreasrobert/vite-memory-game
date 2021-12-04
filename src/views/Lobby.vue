@@ -4,7 +4,7 @@
     :class="` bg-${color.four} text-${color.six}`"
   >
    <router-link to="/">
-  <div class="absolute top-[5px] right-[12px]" @click="back">Back</div>
+  <div class="absolute top-[15px] p-[5px] px-[15px] rounded-[26px] text-white text-[19px] right-[17px]" :class="` bg-${color.one} hover:bg-${color.nine}`" @click="back">Back</div>
   </router-link>
     <div class="flex">
       <!-- <img src="/logo.svg" :style="styleImg" alt="" @click="sendMessage" /> -->
@@ -37,7 +37,7 @@
               h-[52px]
               mt-[14px]
               rounded-[26px]
-              sm:h-[45px] sm:mt-[10px]
+              sm:h-[45px] sm:mt-[10px] sm:text-[5vw]
             "
             :class="`bg-${color.one}  text-${color.ten} ${!created && `cursor-pointer hover:bg-${color.nine}`}`"
             @click="joinRoom"
