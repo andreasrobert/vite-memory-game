@@ -146,7 +146,7 @@ import usePlayerInit from "../composables/usePlayerInit";
 import PlayerTurn from "../components/PlayerTurn.vue";
 import SinglePoint from "../components/SinglePoint.vue";
 import SingleResult from "../components/SingleResult.vue";
-import MenuOnline from "../components/MenuOnline.vue";
+import MenuOnline from "../components/OnlineMenu.vue";
 import store from "../store";
 
 const HelloWorld = {

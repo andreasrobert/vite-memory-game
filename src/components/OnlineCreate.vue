@@ -65,9 +65,9 @@
 
 <script>
 import store from "../store";
-import Option from "../components/Option.vue";
-import OnlinePlayerButton from "../components/OnlinePlayerButton.vue";
-import OptionNumber from "../components/OptionNumber.vue";
+import Option from "./Option.vue";
+import OnlinePlayerButton from "./OnlinePlayerButton.vue";
+import OptionNumber from "./OptionNumber.vue";
 import useShuffleGrid from "../composables/useShuffleGrid";
 
 export default {
