@@ -155,7 +155,9 @@ export default {
     };
   },
   mounted() {
-    // this.connect();
+    fetch(`https://${SERVER}/ping`).catch((err) => {
+      console.log(err);
+    });
   },
   computed: {
     color() {
