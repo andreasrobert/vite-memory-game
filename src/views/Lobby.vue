@@ -123,6 +123,8 @@ import OnlinePlayerButton from "../components/OnlinePlayerButton.vue";
 import OptionNumber from "../components/OptionNumber.vue";
 import useShuffleGrid from "../composables/useShuffleGrid";
 
+const SERVER = "memory-game-server-production.up.railway.app";
+
 export default {
   data() {
     return {
@@ -205,7 +207,7 @@ export default {
       store.commit(
         "initWs",
         new WebSocket(
-          `wss://memory-game-govite.herokuapp.com/ws?name=${this.roomInput}&theme=${theme}&grid=${grid}&size=${size}&create=true`
+          `wss://${SERVER}/ws?name=${this.roomInput}&theme=${theme}&grid=${grid}&size=${size}&create=true`
         )
       );
 
@@ -242,7 +244,7 @@ export default {
       store.commit(
         "initWs",
         new WebSocket(
-          `wss://memory-game-govite.herokuapp.com/ws?name=${this.roomInput}&theme=${theme}&grid=${grid}&size=${size}&create=false`
+          `wss://${SERVER}/ws?name=${this.roomInput}&theme=${theme}&grid=${grid}&size=${size}&create=false`
         )
       );
 
