@@ -123,7 +123,7 @@ import OnlinePlayerButton from "../components/OnlinePlayerButton.vue";
 import OptionNumber from "../components/OptionNumber.vue";
 import useShuffleGrid from "../composables/useShuffleGrid";
 
-const SERVER = "memory-game-server-production.up.railway.app";
+const SERVER = "memory-game-server.onrender.com";
 
 export default {
   data() {
