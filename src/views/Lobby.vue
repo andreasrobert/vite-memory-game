@@ -34,7 +34,9 @@
             }`"
             @click="joinRoom"
           >
-            <div v-if="!created">Create room as Player 1</div>
+            <div v-if="!created">
+              {{ loading ? "Loading..." : "Create room as Player 1" }}
+            </div>
             <div v-if="created">Playing as Player 1</div>
           </div>
         </form>
@@ -152,6 +154,7 @@ export default {
       filled: 1,
       created: false,
       joined: false,
+      loading: false,
     };
   },
   mounted() {
@@ -200,6 +203,7 @@ export default {
         this.ws = null;
       }
       console.log("going");
+      this.loading = true;
       let sets = this.gameSets;
       let theme = sets["Select Theme"];
       let grid = sets["Grid Size"];
@@ -225,6 +229,7 @@ export default {
     },
     onWebsocketOpen() {
       console.log("connected to WS!");
+      this.loading = false;
       this.created = true;
       this.joined = true;
       this.currentReconnectDelay = 1000;
